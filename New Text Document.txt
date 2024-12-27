@@ -1,0 +1,48 @@
+#include <stdio.h>
+#include <string.h>
+struct Question 
+{
+    char question[100];
+    char options[4][50];
+    char correctAnswer;
+};
+char askQuestion(struct Question q) 
+{
+    printf("\n%s\n", q.question);
+    for (int i = 0; i < 4; i++) 
+    {
+        printf("%c. %s\n", 'A' + i, q.options[i]);
+    }
+    printf("Enter your answer (A/B/C/D): ");
+    char answer;
+    scanf(" %c", &answer); 
+    return answer;
+}
+int main() 
+{
+    struct Question quiz[5]=  
+    {
+        {"What is the capital of France?", {"Paris", "London", "Berlin", "Madrid"}, 'A'},
+        {"Which is the largest planet?", {"Earth", "Mars", "Jupiter", "Venus"}, 'C'},
+        {"What is the Capital of India? ",{"Delhi","Andhra Pradesh","Assam","Bihar"},'A'}
+    };
+    int score = 0;
+    int totalQuestions = 3;
+    for (int i = 0; i < totalQuestions; i++)
+    {
+        printf("\nQuestion %d:\n", i + 1);
+        char userAnswer = askQuestion(quiz[i]);
+        if (userAnswer == quiz[i].correctAnswer || userAnswer == quiz[i].correctAnswer + 32) 
+        {
+            printf("Correct!\n");
+            score++;
+        } 
+        else 
+        {
+            printf("Wrong! The correct answer is: %c\n", quiz[i].correctAnswer);
+        }
+    }
+    printf("\n--- Quiz Over ---\n");
+    printf("Your final score is: %d/%d\n", score, totalQuestions);
+    return 0;
+}
